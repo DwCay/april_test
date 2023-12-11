@@ -1,0 +1,40 @@
+:root {
+  --background-color-blue: #1975B5;
+  --background-color-blue2: #c8d3fa;
+  --background-color-blue3: #e4eff7;
+  --background-color-white: #ffffff;
+  --font-default-black: #212b33;
+  --font-white-color: #e8ecfa;
+  --font-grey-color: #bbbaba;
+  --font-blue-color: #4eb2f5;
+  --border-color: #d5d8e0;
+  --border-color-dark: #a8aab1;
+  --hover-color: #ebeef5;
+}
+
+#__nuxt {
+  height: 100vh;
+  width: 100%;
+}
+
+body {
+  min-height: 100%;
+  margin: 0;
+  color: var(--font-default-black);
+  display: flex;
+  justify-content: center;
+  position: relative;
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    'Fira Sans',
+    'Droid Sans',
+    'Helvetica Neue',
+    sans-serif;
+}
