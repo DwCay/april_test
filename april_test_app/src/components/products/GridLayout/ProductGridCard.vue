@@ -3,51 +3,37 @@
     <img
       width="100%"
       height="180px"
-      :src="props.img"
+      :src="imageСheck(props.images[0])"
+      alt="productImage"
     />
-    <div class="prices">
-      <p class="price">{{ `$ ${props.price}` }}</p>
-      <p 
-        v-if="props.whitePrice"
-        class="white-price"
-        >
-        {{ `$ ${props.whitePrice}` }}
-      </p>
+    <div>
+      <span class="price">{{ `$ ${props.price}` }}</span>
     </div>
     <div class="product-name">
-      <p>{{ props.name }}</p>
+      <p>{{ props.title }}</p>
     </div>
     <div class="more-info">
       <div class="info">
-        <p class="title">{{ `${ProductTitles.brandName}:` }}</p>
-        <p class="value">{{ props.brandName }}</p>
-      </div>
-      <div class="info">
-        <p class="title">{{ `${ProductTitles.category}:` }}</p>
-        <p class="value">{{ props.category }}</p>
+        <span class="title">{{ `${ProductTitles.category}:` }}</span>
+        <span class="value">{{ props.category.name }}</span>
       </div>
     </div>
     <div class="hover-info">
-      <div 
-        class="product-color" 
-        :style="{backgroundColor: `#${props.color?.code}`}"/>
-      <div 
-        class="product-sizes">
-        <p v-for="size in props.sizes" :key="size">{{ size }}</p>
-      </div>
+      <span>{{ props.description }}</span>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { ProductTitles } from '~/src/store/types';
-import { propsTypes } from '~/src/assets/propsTypes';
+import { ProductTitles } from '~/src/utils/types';
+import { propsTypes } from '~/src/utils/propsTypes';
+import { imageСheck } from '~/src/utils/imageСheck';
 
 export default defineComponent({
   props: propsTypes,
   setup(props) {
-    return { props, ProductTitles }
+    return { props, ProductTitles, imageСheck }
   }
 })
 </script>
@@ -55,9 +41,10 @@ export default defineComponent({
 <style lang="scss" scoped>
 .product-card {
   display: flex;
+  max-width: 200px;
   flex-direction: column;
   background-color: var(--background-color-white);
-  gap: 5px;
+  gap: 10px;
   border-radius: 8px;
   padding: 10px;
   cursor: pointer;
@@ -86,20 +73,9 @@ export default defineComponent({
     box-shadow: 0px 0px 8px 0px rgba(34, 60, 80, 0.2);
   }
 }
-.prices {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  line-height: 0;
-}
 .price {
   font-size: 18px;
   font-weight: 600;
-}
-.white-price {
-  font-size: 14px;
-  color: var(--font-grey-color);
-  text-decoration: line-through;
 }
 .product-name {
   font-size: 16px;
@@ -109,7 +85,7 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   gap: 5px;
-  & p {
+  & span {
     margin-top: -3px;
     margin-bottom: -3px;
   }
@@ -130,24 +106,6 @@ export default defineComponent({
 }
 .hover-info {
   display: none;
-}
-.product-color {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 1px solid var(--border-color);
-}
-.product-sizes {
-  display: flex;
-  flex-wrap: wrap;
-  column-gap: 10px;
-  color: var(--font-grey-color);
-  & p {
-    font-size: 14px;
-    font-weight: 500;
-    white-space: nowrap;
-    line-height: 0px;
-  }
 }
 
 img {

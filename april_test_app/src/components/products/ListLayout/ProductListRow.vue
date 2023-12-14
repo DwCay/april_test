@@ -6,42 +6,30 @@
       >
       <img 
         class="product-img" 
-        v-if="key === 'img'" 
-        :src="props[key]"
+        v-if="key === 'images'" 
+        :src="imageСheck(props[key][0])"
+        alt="productImage"
       />
-      <div 
-        v-else-if="key === 'color'"
-        class="product-color"
-        :style="{backgroundColor: `#${props[key]?.code}`}"/>
       <div v-else-if="key === 'price'" class="prices">
         <p class="price">{{ `$ ${props.price}` }}</p>
-        <p v-if="props.whitePrice" class="white-price">
-          {{ `$ ${props.whitePrice}` }}
-        </p>
       </div>
-      <div v-else-if="key === 'sizes'">
-        <div class="sizes">
-          <p>Размеры</p>
-          <div class="sizes-popap">
-            <p v-for="size in props[key]" :key="size">{{ size }}</p>
-          </div>
-        </div>
-      </div>
-      <p v-else>{{ props[key] }}</p>
+      <p v-else-if="key === 'category'">{{ props[key].name }}</p>
+      <p v-else-if="key === 'title'">{{ props.title }}</p>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { ProductTitles } from '~/src/store/types';
-import { propsTypes } from '~/src/assets/propsTypes';
+import { ProductTitles } from '~/src/utils/types';
+import { propsTypes } from '~/src/utils/propsTypes';
+import { imageСheck } from '~/src/utils/imageСheck';
 
 export default defineComponent({
   props: propsTypes,
   setup(props) {
     const rowKeys = Object.keys(ProductTitles);
-    return { props, rowKeys };
+    return { props, rowKeys, imageСheck };
   }
 })
 </script>
@@ -53,7 +41,7 @@ export default defineComponent({
   padding: 10px 0px 20px 0px;
   display: grid;
   border-bottom: 1px solid var(--border-color);
-  grid-template-columns: repeat(8, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   cursor: pointer;
   &:hover {
     background-color: var(--hover-color);

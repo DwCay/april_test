@@ -11,7 +11,6 @@ export const useLoadingStore = defineStore('loading', () => {
   }
   function stop(): void {
     loading.value = false;
-    teleportId.value = null;
   }
   return { loading, teleportId, start, stop }
 })

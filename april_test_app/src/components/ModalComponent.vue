@@ -1,19 +1,18 @@
 <template>
-  <Teleport v-if="modalStore.showModal" to="body">
+  <teleport to="#app">
     <div 
       class="backdrop"
       >
-      <div 
-        class="modal">
+      <div class="modal">
         <slot></slot>
       </div>
     </div>
-  </Teleport>
+  </teleport>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import { useModalStore } from '../store/modal';
+import { defineComponent, onMounted } from 'vue';
+import { useModalStore } from '../stores/modal';
 
 export default defineComponent({
   setup(){
@@ -39,6 +38,7 @@ export default defineComponent({
 .modal {
   position: absolute;
   z-index: 1000;
+  width: 500px;
   background-color: var(--background-color-white);
   padding: 20px;
   border-radius: 8px;

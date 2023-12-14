@@ -1,5 +1,5 @@
 <template>
-  <Teleport v-if="loadingStore.loading" :to="loadingStore.teleportId">
+  <teleport v-if="loadingStore.loading" :to="loadingStore.teleportId">
     <div class="loading">
       <div class="spinner"></div>
     </div>
@@ -8,11 +8,12 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { useLoadingStore } from '../store/loading';
+import { useLoadingStore } from '../stores/loading';
 
 export default defineComponent({
   setup() {
     const loadingStore = useLoadingStore();
+
     return { loadingStore } 
   }
 })
@@ -35,7 +36,6 @@ export default defineComponent({
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
 }
 
 .spinner:after {

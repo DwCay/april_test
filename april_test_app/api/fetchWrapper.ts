@@ -1,29 +1,17 @@
 import axios, { type AxiosResponse } from "axios"
+import { type RequestParams } from "../src/utils/types";
 
-const params: Params = {
-  pagesize: 30,
+const params: RequestParams = {
+  offset: 1,
+  limit: 107,
 }
 
-export type Params = {
-  currentpage?: number,
-  pagesize?: number,
-  categories?: string,
-  productcode?: string
+export const getProductsList = (): Promise<AxiosResponse> => {
+  const url = 'https://api.escuelajs.co/api/v1/products';
+  return axios.get(url, {params: {...params}});
 }
 
-
-export const getProductsList = (param?: Params): Promise<AxiosResponse> => {
-  const url = 'https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/list';
-  const headers = {
-    "X-RapidAPI-Key": '5f43a3c177msh7b9fccdf9562b93p1e566djsnad4602385328',
-  };
-  return axios.get(url, {headers, params: {...params, ...param}});
-}
-
-export const getProductDetail = (param?: Params): Promise<AxiosResponse> => {
-  const url = 'https://apidojo-hm-hennes-mauritz-v1.p.rapidapi.com/products/detail';
-  const headers = {
-    "X-RapidAPI-Key": '5f43a3c177msh7b9fccdf9562b93p1e566djsnad4602385328',
-  };
-  return axios.get(url, {headers, params: {...param}});
+export const getProductDetail = (param?: RequestParams): Promise<AxiosResponse> => {
+  const url = `https://api.escuelajs.co/api/v1/products/${param?.id}`;
+  return axios.get(url);
 }

@@ -1,17 +1,20 @@
 <template>
   <div class="grid-layout" id="grid">
     <product-grid-card 
-      v-for="product in productsStore.products" 
-      :key="product.code"
-      @click="() => modalStore.open(product.code, '#detail')"
+      v-for="product in productsStore.getCurrentPage()" 
+      :key="product.id"
+      @click="() => {
+          modalStore.open(); 
+          productsStore.setProductId(product.id)
+      }"
       v-bind="product"/>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { useProductsStore } from '~/src/store/products';
-import { useModalStore } from '~/src/store/modal';
+import { useProductsStore } from '~/src/stores/products';
+import { useModalStore } from '~/src/stores/modal';
 import ProductGridCard from './ProductGridCard.vue';
 
 export default defineComponent({
@@ -27,6 +30,9 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .grid-layout {
+  max-height: 100%;
+  height: fit-content;
+  width: 60%;
   padding: 20px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));

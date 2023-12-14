@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <p class="title">Clothing Store</p>
+    <p class="title">Products Store</p>
   </div>
 </template>
 
@@ -15,7 +15,7 @@ export default {
   .header {
     background-color: var(--background-color-blue);
     width: 100%;
-    height: 10vh;
+    height: 10%;
     display: flex;
     align-items: center;
   }

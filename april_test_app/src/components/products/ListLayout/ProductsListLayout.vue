@@ -1,17 +1,20 @@
 <template>
-  <div class="list-layout" id="list">
+  <div class="list-layout">
     <div class="hedaer-list">
       <div
-        v-for="title in titles" :key="title" 
+        v-for="(value, key) in titles" :key="key" 
         class="product-title">
-        <p>{{ title }}</p>
+        <span>{{ value }}</span>
       </div>
     </div>
     <div class="products-list">
       <product-list-row 
-        v-for="product in productsStore.products" 
-        :key="product.code"
-        @click="() => modalStore.open(product.code, '#detail')"
+        v-for="product in productsStore.getCurrentPage()" 
+        :key="product.id"
+        @click="() => {
+          modalStore.open(); 
+          productsStore.setProductId(product.id);
+        }"
         v-bind="product"/>
     </div>
   </div>
@@ -19,15 +22,15 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { ProductTitles } from '~/src/store/types';
-import { useProductsStore } from '~/src/store/products';
-import { useModalStore } from '~/src/store/modal';
+import { ProductTitles } from '~/src/utils/types';
+import { useProductsStore } from '~/src/stores/products';
+import { useModalStore } from '~/src/stores/modal';
 import ProductListRow from './ProductListRow.vue';
 
 export default defineComponent({
   components: { ProductListRow },
   setup() {
-    const titles = Object.values(ProductTitles);
+    const titles = ProductTitles;
     const productsStore = useProductsStore();
     const modalStore = useModalStore();
 
@@ -41,6 +44,8 @@ export default defineComponent({
   display: flex;
   position: relative;
   width: 100%;
+  max-height: 100%;
+  height: fit-content;
   flex-direction: column;
   border: solid 2px var(--border-color);
   border-radius: 8px;
@@ -51,7 +56,7 @@ export default defineComponent({
 .hedaer-list {
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   align-items: center;
   height: 50px;
   color: var(--font-grey-color);
@@ -79,7 +84,6 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  height: fit-content;
   -ms-overflow-style: none;
       scrollbar-width: none;
     &::-webkit-scrollbar {
@@ -89,9 +93,9 @@ export default defineComponent({
   -moz-box-shadow: 0px 21px 57px -42px rgba(34, 60, 80, 0.42) inset;
   box-shadow: 0px 21px 57px -42px rgba(34, 60, 80, 0.42) inset;
 }
-@media (max-height: 1450px) {
-  .products-list {
-    height: 60vh;
+@media (min-height: 1600px) {
+  .list-layout {
+    height: fit-content;
   }
 }
 </style>
